@@ -1,0 +1,3 @@
+data/*
+test_results/preprocessed_data*
+.ipynb_checkpoints/*
