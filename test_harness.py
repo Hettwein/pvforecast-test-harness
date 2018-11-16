@@ -47,8 +47,8 @@ if True:
                     'High Cloud Cover', 'Wind Speed', 'Wind Gust', 'Total Precipitation',
                     'Snow Fraction', 'Mean Sea Level Pressure', 'DIF - backwards', 'DNI - backwards', 'Shortwave Radiation',
                     'Temperature', 'Relative Humidity', 'Hour_x', 'Hour_y', 'Month_x', 'Month_y']#20
-    const_features = ['SystemID']
-    dyn_features = ['DIF - backwards', 'DNI - backwards', 'Shortwave Radiation', 'Temperature', 'Relative Humidity', 'Hour_x', 'Hour_y', 'Month_x', 'Month_y']
+    #const_features = ['SystemID']
+    #dyn_features = ['DIF - backwards', 'DNI - backwards', 'Shortwave Radiation', 'Temperature', 'Relative Humidity', 'Hour_x', 'Hour_y', 'Month_x', 'Month_y']
     target_features = ['power']
     drop_features = ['power_pvlib']
     act_fct = 'relu'
@@ -82,8 +82,9 @@ def main():
     X, y, Xt, yt, idx, pvlib = prepare_data()
     for k in range(num_runs):
         print("Run "+str(k) + ":")
-        training(X, y, model)
-        evaluation(Xt, yt, idx, k, model, pvlib)
+        #training(X, y, model)
+        #evaluation(Xt, yt, idx, k, model, pvlib)
+        randomForestRegression(X, y, Xt, yt, idx)
 
     
 def build_model():
@@ -161,22 +162,31 @@ def prepare_data():
 
     return trainX, trainY, testX, testY, testX.index.values, pvlib
 
-def RandomForestRegression(x_train, y_train):
+def randomForestRegression(x_train, y_train, x_test, y_test, dates):
     from sklearn.ensemble import RandomForestRegressor
     regr = RandomForestRegressor(n_estimators=216, criterion='mse', oob_score=True, n_jobs=4, verbose=1, max_features=0.53)#, random_state=0
-    regr.fit(x_train, y_train.ravel())
+    regr.fit(x_test, y_test)#x_train, y_train)
+    
+    features = x_train.columns
+    importances = regr.feature_importances_
+    indices = np.argsort(importances)[-29:]  # top 30 features
+    plt.title('Feature Importances')
+    plt.barh(range(len(indices)), importances[indices], color='b', align='center')
+    plt.yticks(range(len(indices)), [features[i] for i in indices])
+    plt.xlabel('Relative Importance')
+    plt.show()
     
     train_pred = regr.predict(x_train)
     test_pred = regr.predict(x_test)
-    mse_train = mean_squared_error(y_train.ravel(), train_pred)
-    mse_test = mean_squared_error(y_test.ravel(), test_pred)
+    mse_train = mean_squared_error(y_train, train_pred)
+    mse_test = mean_squared_error(y_test, test_pred)
 
-    print("RMSE Training: %f" % sqrt(mse_train))
-    print("RMSE Test: %f" % sqrt(mse_test))
+    print("RMSE Training: %f" % math.sqrt(mse_train))
+    print("RMSE Test: %f" % math.sqrt(mse_test))
 
-    dates = pd.to_datetime(dates)
-    y_test = pd.Series(y_test.ravel(), index=dates)
-    test_pred = pd.Series(test_pred.ravel(), index=dates)
+    #dates = pd.to_datetime(dates)
+    y_test = pd.Series(y_test)#, index=dates)
+    test_pred = pd.Series(test_pred)#, index=dates)
     
     plt.figure()
     plt.plot(y_test, label='Test')
