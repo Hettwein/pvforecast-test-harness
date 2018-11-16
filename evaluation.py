@@ -30,7 +30,8 @@ def draw_boxplot(m_col, p_col, l_col, method, horizon, start=None, end=None):
     if end:
         name += '_to' + end.replace(':', '-')
     fig.savefig(name + '.png', bbox_inches='tight')
-    fig.show()
+    #fig.show()
+    plt.close(fig)
     
 def draw_boxplot_monthly(m_col, p_col, l_col, method, horizon):
     fig, ax = plt.subplots(figsize=(18, 18))
@@ -52,7 +53,8 @@ def draw_boxplot_monthly(m_col, p_col, l_col, method, horizon):
     ax.legend([bp1["boxes"][0], bp2["boxes"][0]], [horizon, method])
     ax.set_xticklabels(['february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december', 'january'])
     fig.savefig(dir + 'boxplot_' + horizon + '_vs_' + method + '_monthly.png', bbox_inches='tight')
-    fig.show()
+    #fig.show()
+    plt.close(fig)
 
 def walkForwardDailyLoss(test_y, pred_y, method_y, method, horizon):
     j = int(len(test_y) / 24)
@@ -76,7 +78,8 @@ def walkForwardDailyLoss(test_y, pred_y, method_y, method, horizon):
     fig.autofmt_xdate()
     plt.grid(True)
     fig.savefig(dir + horizon + '_dailyRMSE_full_' + '.png')
-    fig.show()
+    #fig.show()
+    plt.close(fig)
 
 def scatter_predictions(test_y, pred_y, horizon):
     fig, ax = plt.subplots(figsize=(12, 12))
@@ -85,7 +88,8 @@ def scatter_predictions(test_y, pred_y, horizon):
     ax.set_xlabel('Measured')
     ax.set_ylabel('Predicted')
     fig.savefig(dir + 'scatter_' + horizon + '.png')
-    fig.show()
+    #fig.show()
+    plt.close(fig)
     
 def plot_timeseries(m_col, p_col, l_col, method, horizon, start=None, end=None):
     fig, ax = plt.subplots(figsize=(18, 12))
@@ -107,13 +111,15 @@ def plot_timeseries(m_col, p_col, l_col, method, horizon, start=None, end=None):
     if l_col is not None:
         name += '_with_' + method
     fig.savefig(name + '.png')
-    fig.show()
+    #fig.show()
+    plt.close(fig)
 
 def draw_histogram(p_col, m_col, horizon):
     fig, ax = plt.subplots(figsize=(12, 12)) 
     ax.hist(p_col - m_col, bins=200)
     fig.savefig(dir + horizon + '_histogram.png')
-    fig.show()
+    #fig.show()
+    plt.close(fig)
     
 def draw_history(history, test=False):
     hist = pd.DataFrame.from_dict(history.history)
@@ -125,4 +131,5 @@ def draw_history(history, test=False):
     if test:
         name += '_test'
     fig.savefig(name + '.png')
-    fig.show()
+    #fig.show()
+    plt.close(fig)
