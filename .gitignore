@@ -1,5 +1,6 @@
 data/*
 test_results/preprocessed_data*
 test_results/other/*
+saved_models/*
 .ipynb_checkpoints/*
 __pycache__/*

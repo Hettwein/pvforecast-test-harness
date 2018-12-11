@@ -5,26 +5,30 @@ import math
 from sklearn.metrics import mean_squared_error
 import os
 
-dir = './test_results/'
+dir = './test_results/'#_bifacial/'
 if not os.path.exists(dir):
     os.makedirs(dir)
     
 
 def _draw_boxplot(data, offset, ax, edge_color, fill_color, mticks=False, num=1):
     pos = np.arange(num) + offset 
-    bp = ax.boxplot(data, positions=pos, widths=0.3, patch_artist=True, whis='range', manage_xticks=mticks)
+    bp = ax.boxplot(data, positions=pos, widths=0.3, patch_artist=True, whis=[5, 95, 1000], manage_xticks=mticks)#'range'
     for element in ['boxes', 'whiskers', 'fliers', 'means', 'medians', 'caps']:
         plt.setp(bp[element], color=edge_color)
     for patch in bp['boxes']:
         patch.set(facecolor=fill_color)
     return bp
     
-def draw_boxplot(m_col, p_col, l_col, method, horizon, start=None, end=None):
+def draw_boxplot(m_col, p_col, l_col=None, method=None, horizon='', start=None, end=None):
     fig, ax = plt.subplots(figsize=(12, 12))
     bp1 = _draw_boxplot(p_col[start:end] - m_col[start:end], -0.2, ax, 'red', 'tomato')
-    bp2 = _draw_boxplot(l_col[start:end] - m_col[start:end], 0.2, ax, 'blue', 'cornflowerblue')
-    ax.legend([bp1["boxes"][0], bp2["boxes"][0]], [horizon, method])
-    name = dir + 'boxplot_' + horizon + '_vs_' + method
+    if l_col is not None:
+        bp2 = _draw_boxplot(l_col[start:end] - m_col[start:end], 0.2, ax, 'blue', 'cornflowerblue')
+        ax.legend([bp1["boxes"][0], bp2["boxes"][0]], [horizon, method])
+        name = dir + 'boxplot_' + horizon + '_vs_' + method
+    else:
+        ax.legend([bp1["boxes"][0]], [horizon])
+        name = dir + 'boxplot_' + horizon
     if start:
         name += '_from' + start.replace(':', '-')
     if end:
@@ -56,25 +60,31 @@ def draw_boxplot_monthly(m_col, p_col, l_col, method, horizon):
     #fig.show()
     plt.close(fig)
 
-def walkForwardDailyLoss(test_y, pred_y, method_y, method, horizon):
+def walkForwardDailyLoss(test_y, pred_y, method_y=None, method=None, horizon='1'):
     j = int(len(test_y) / 24)
     d1 = np.array_split(test_y, j)
     d2 = np.array_split(pred_y, j)
-    d3 = np.array_split(method_y, j)
     pred_error = pd.DataFrame([math.sqrt(mean_squared_error(d2[i], d1[i])) for i in range(len(d1))])
-    method_error = pd.DataFrame([math.sqrt(mean_squared_error(d3[i], d1[i])) for i in range(len(d1))])
     print('daily mean ' + horizon + ' RMSE: ' + str(pred_error.mean()[0]))
-    print('daily mean ' + method + ' forecast RMSE: ' + str(method_error.mean()[0]))
     print(pred_error.describe())
-    print(method_error.describe())
+    
+    if method_y is not None:
+        d3 = np.array_split(method_y, j)
+        method_error = pd.DataFrame([math.sqrt(mean_squared_error(d3[i], d1[i])) for i in range(len(d1))])
+        print('daily mean ' + method + ' forecast RMSE: ' + str(method_error.mean()[0]))
+        print(method_error.describe())
     
     fig, ax = plt.subplots(figsize=(18, 12))
     ax.plot(pred_error)
-    ax.plot(method_error)
+    if method_y is not None:
+        ax.plot(method_error)
     ax.set_title("Daily RMSE")
     ax.set_ylabel("RMSE in Watts")
     ax.set_yscale('linear')
-    ax.legend([horizon + ' error', method + ' error'])
+    if method_y is not None:
+        ax.legend([horizon + ' error', method + ' error'])
+    else:
+        ax.legend([horizon + ' error'])
     fig.autofmt_xdate()
     plt.grid(True)
     fig.savefig(dir + horizon + '_dailyRMSE_full_' + '.png')
@@ -133,3 +143,9 @@ def draw_history(history, test=False):
     fig.savefig(name + '.png')
     #fig.show()
     plt.close(fig)
+    
+def plot_error_by_hour_of_day(m_col, p_col, l_col, method):
+    hourly_err = []
+    for i in range(24):
+        for j in range(0, len(m_col), 24):
+            hourly_err.append(p_col[i + j] - m_col[i + j])
