@@ -6,39 +6,49 @@ from sklearn.metrics import mean_squared_error
 import os
 
 dir = './test_results/'#_bifacial/'
+figsize = (16, 16)
 if not os.path.exists(dir):
     os.makedirs(dir)
-    
 
-def _draw_boxplot(data, offset, ax, edge_color, fill_color, mticks=False, num=1):
-    pos = np.arange(num) + offset 
-    bp = ax.boxplot(data, positions=pos, widths=0.3, patch_artist=True, whis=[5, 95, 1000], manage_xticks=mticks)#'range'
-    for element in ['boxes', 'whiskers', 'fliers', 'means', 'medians', 'caps']:
+def set_dir(directory):
+    global dir
+    dir = directory
+    if not os.path.exists(dir):
+        os.makedirs(dir)
+
+def _draw_boxplot(data, offset, ax, edge_color, fill_color, mticks=True, num=1, outliers=True):
+    pos = np.arange(num) + offset
+    bp = ax.boxplot(data, positions=pos, widths=0.3, patch_artist=True, manage_xticks=mticks, sym='x', capprops={'linewidth': 2}, medianprops={'linewidth': 2}, showfliers=outliers)
+    for element in ['boxes', 'whiskers', 'fliers', 'caps', 'medians']:
         plt.setp(bp[element], color=edge_color)
     for patch in bp['boxes']:
         patch.set(facecolor=fill_color)
     return bp
     
-def draw_boxplot(m_col, p_col, l_col=None, method=None, horizon='', start=None, end=None):
-    fig, ax = plt.subplots(figsize=(12, 12))
-    bp1 = _draw_boxplot(p_col[start:end] - m_col[start:end], -0.2, ax, 'red', 'tomato')
+def draw_boxplot(m_col, p_col, l_col=None, method=None, horizon='', start=None, end=None, title='', unit='w', outliers=True):
+    fig, ax = plt.subplots(figsize=figsize)
     if l_col is not None:
-        bp2 = _draw_boxplot(l_col[start:end] - m_col[start:end], 0.2, ax, 'blue', 'cornflowerblue')
+        bp1 = _draw_boxplot(p_col[start:end] - m_col[start:end], -0.2, ax, 'black', 'orange', False, outliers=outliers)
+        bp2 = _draw_boxplot(l_col[start:end] - m_col[start:end], 0.2, ax, 'black', 'green', False, outliers=outliers)
         ax.legend([bp1["boxes"][0], bp2["boxes"][0]], [horizon, method])
         name = dir + 'boxplot_' + horizon + '_vs_' + method
     else:
+        bp1 = _draw_boxplot(p_col[start:end] - m_col[start:end], 0, ax, 'black', 'orange')
         ax.legend([bp1["boxes"][0]], [horizon])
         name = dir + 'boxplot_' + horizon
     if start:
         name += '_from' + start.replace(':', '-')
     if end:
         name += '_to' + end.replace(':', '-')
+    ax.set_title(title)
+    ax.set_ylabel('Error [' + unit + ']')
+    ax.set_xticklabels([''])
+    plt.grid(True)
     fig.savefig(name + '.png', bbox_inches='tight')
-    #fig.show()
     plt.close(fig)
     
-def draw_boxplot_monthly(m_col, p_col, l_col, method, horizon):
-    fig, ax = plt.subplots(figsize=(18, 18))
+def draw_boxplot_monthly(m_col, p_col, l_col, method, horizon, title, unit, outliers=True):
+    fig, ax = plt.subplots(figsize=figsize)
     m0, m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15, m16, m17, m18, m19, m20, m21, m22 = '2016-02-01 00:00:00', '2016-03-01 00:00:00', '2016-04-01 00:00:00', '2016-05-01 00:00:00', '2016-06-01 00:00:00', '2016-07-01 00:00:00', '2016-08-01 00:00:00', '2016-09-01 00:00:00', '2016-10-01 00:00:00', '2016-11-01 00:00:00', '2016-12-01 00:00:00', '2017-01-01 00:00:00', '2017-02-01 00:00:00', '2017-03-01 00:00:00', '2017-04-01 00:00:00', '2017-05-01 00:00:00', '2017-06-01 00:00:00', '2017-07-01 00:00:00', '2017-08-01 00:00:00', '2017-09-01 00:00:00', '2017-10-01 00:00:00', '2017-11-01 00:00:00', '2017-12-01 00:00:00'
     preds = np.array([p_col[m0:m1] - m_col[m0:m1], p_col[m1:m2] - m_col[m1:m2],
                       p_col[m2:m3] - m_col[m2:m3], p_col[m3:m4] - m_col[m3:m4],
@@ -64,13 +74,15 @@ def draw_boxplot_monthly(m_col, p_col, l_col, method, horizon):
                       l_col[m18:m19] - m_col[m18:m19], l_col[m19:m20] - m_col[m19:m20],
                       l_col[m20:m21] - m_col[m20:m21], l_col[m21:m22] - m_col[m21:m22],
                       l_col[m22:] - m_col[m22:]])
-    bp1 = _draw_boxplot(preds, -0.2, ax, 'red', 'tomato', True, len(preds))
-    bp2 = _draw_boxplot(pvlibs, 0.2, ax, 'blue', 'cornflowerblue', True, len(pvlibs))
+    bp1 = _draw_boxplot(preds, -0.2, ax, 'black', 'orange', True, len(preds), outliers)
+    bp2 = _draw_boxplot(pvlibs, 0.2, ax, 'black', 'green', True, len(pvlibs), outliers)
     ax.legend([bp1["boxes"][0], bp2["boxes"][0]], [horizon, method])
-    ax.set_xticklabels(['february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december', 'january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'])
     fig.autofmt_xdate()
+    ax.set_title(title)
+    ax.set_ylabel('Error [' + unit + ']')
+    ax.set_xticklabels(['february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december', 'january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'])
+    plt.grid(True)
     fig.savefig(dir + 'boxplot_' + horizon + '_vs_' + method + '_monthly.png', bbox_inches='tight')
-    #fig.show()
     plt.close(fig)
 
 def walkForwardDailyLoss(test_y, pred_y, method_y=None, method=None, horizon='1'):
@@ -79,21 +91,19 @@ def walkForwardDailyLoss(test_y, pred_y, method_y=None, method=None, horizon='1'
     d2 = np.array_split(pred_y, j)
     pred_error = pd.DataFrame([math.sqrt(mean_squared_error(d2[i], d1[i])) for i in range(len(d1))])
     print('daily mean ' + horizon + ' RMSE: ' + str(pred_error.mean()[0]))
-    print(pred_error.describe())
     
     if method_y is not None:
         d3 = np.array_split(method_y, j)
         method_error = pd.DataFrame([math.sqrt(mean_squared_error(d3[i], d1[i])) for i in range(len(d1))])
         print('daily mean ' + method + ' forecast RMSE: ' + str(method_error.mean()[0]))
-        print(method_error.describe())
     
-    fig, ax = plt.subplots(figsize=(18, 12))
-    ax.plot(pred_error)
+    fig, ax = plt.subplots(figsize=figsize)
+    ax.plot(pred_error, color='orange', linewidth=2)
     if method_y is not None:
-        ax.plot(method_error)
-    ax.set_title("Daily RMSE")
-    ax.set_ylabel("RMSE in Watts")
-    ax.set_yscale('linear')
+        ax.plot(method_error, color='green', linestyle='dashed', linewidth=2)
+    ax.set_title('Daily RMSE')
+    ax.set_ylabel('RMSE [w]')
+    ax.set_xlabel('Day')
     if method_y is not None:
         ax.legend([horizon + ' error', method + ' error'])
     else:
@@ -101,29 +111,31 @@ def walkForwardDailyLoss(test_y, pred_y, method_y=None, method=None, horizon='1'
     fig.autofmt_xdate()
     plt.grid(True)
     fig.savefig(dir + horizon + '_dailyRMSE_full_' + '.png')
-    #fig.show()
     plt.close(fig)
 
 def scatter_predictions(test_y, pred_y, horizon):
-    fig, ax = plt.subplots(figsize=(12, 12))
-    ax.scatter(test_y, pred_y)
-    ax.plot([np.amin(test_y), np.amax(test_y)], [np.amin(pred_y), np.amax(pred_y)], 'k--', lw=3)
-    ax.set_xlabel('Measured')
-    ax.set_ylabel('Predicted')
+    fig, ax = plt.subplots(figsize=figsize)
+    ax.scatter(test_y, pred_y, marker='^')
+    ax.plot([np.amin(test_y), np.amax(test_y)], [np.amin(test_y), np.amax(test_y)], 'k--', lw=3)####?[np.amin(pred_y), np.amax(pred_y)], 'k--', lw=3)####?
+    ax.set_title('Power measured vs predicted')
+    ax.set_xlabel('Measured power [w]')
+    ax.set_ylabel('Predicted power [w]')
+    plt.grid(True)
     fig.savefig(dir + 'scatter_' + horizon + '.png')
-    #fig.show()
     plt.close(fig)
     
 def plot_timeseries(m_col, p_col, l_col, method, horizon, start=None, end=None):
-    fig, ax = plt.subplots(figsize=(18, 12))
-    ax.plot(m_col[start:end])
-    ax.plot(p_col[start:end])
+    fig, ax = plt.subplots(figsize=figsize)
+    ax.plot(p_col[start:end], color='orange', linewidth=2)
     if l_col is not None:
-        ax.plot(l_col[start:end])
-    ax.set_title("pv power prediction")
-    ax.set_ylabel("Power")
-    ax.set_yscale('linear')
-    ax.legend(['measured', horizon, method])
+        ax.plot(l_col[start:end], color='green', linestyle='dashed', linewidth=2)
+        ax.plot(m_col[start:end], color='blue', linestyle='dotted', linewidth=2)
+        ax.legend([horizon, method, 'measured'])
+    else:
+        ax.plot(m_col[start:end], color='blue', linestyle='dotted', linewidth=2)
+        ax.legend([horizon, 'measured'])
+    ax.set_title('Power prediction')
+    ax.set_ylabel('Power [w]')
     fig.autofmt_xdate()
     plt.grid(True)
     name = dir + horizon + '_timeseries'
@@ -134,27 +146,32 @@ def plot_timeseries(m_col, p_col, l_col, method, horizon, start=None, end=None):
     if l_col is not None:
         name += '_with_' + method
     fig.savefig(name + '.png')
-    #fig.show()
     plt.close(fig)
 
 def draw_histogram(p_col, m_col, horizon):
-    fig, ax = plt.subplots(figsize=(12, 12)) 
+    fig, ax = plt.subplots(figsize=figsize) 
     ax.hist(p_col - m_col, bins=200)
+    ax.set_title('Error distribution')
+    ax.set_ylabel('Number of predictions')
+    ax.set_xlabel('Error [w]')
+    fig.autofmt_xdate()
     fig.savefig(dir + horizon + '_histogram.png')
-    #fig.show()
     plt.close(fig)
     
 def draw_history(history, test=False):
     hist = pd.DataFrame.from_dict(history.history)
-    fig, ax = plt.subplots(figsize=(12, 12)) 
+    fig, ax = plt.subplots(figsize=figsize)
     ax.plot(hist)
+    ax.set_title('Loss history')
+    ax.set_xlabel('Epoch')
+    ax.set_ylabel('MAE [w]')
     ax.legend(hist.columns.values)
+    fig.autofmt_xdate()
     plt.grid(True)
     name = dir + 'loss_history'
     if test:
         name += '_test'
     fig.savefig(name + '.png')
-    #fig.show()
     plt.close(fig)
     
 def plot_error_by_hour_of_day(data, method, shift, forecast_horizon):
@@ -170,16 +187,15 @@ def plot_error_by_hour_of_day(data, method, shift, forecast_horizon):
     for col in data_h.columns.values:
         data_h[col] = np.roll(data_h[col], shift)
         
-    fig, ax = plt.subplots(figsize=(12, 12))
+    fig, ax = plt.subplots(figsize=figsize)
     ax.plot(data_h)
-    ax.set_title("mean RMSE per hour of day")
-    ax.set_ylabel("RMSE [watts]")
-    ax.set_yscale('linear')
+    ax.set_title('Mean RMSE per hour of day')
+    ax.set_ylabel('RMSE [w]')
+    ax.set_xlabel('Hour of day')
     ax.legend(data_h.columns.values)
     fig.autofmt_xdate()
     plt.grid(True)
     fig.savefig(dir + 'mean_RMSE_per_hour.png')
-    #fig.show()
     plt.close(fig)
     
 def daily_energy_error(m_col, p_col, l_col, method, horizon, start=None, end=None):
