@@ -149,7 +149,7 @@ class RandomForest(MachineLearnModel):
     
     def __init__(self, est, mf, crit='mse', verbose=0, **kwargs):
         super().__init__('RandomForest')
-        self.model = RandomForestRegressor(n_estimators=est, criterion=crit, oob_score=False, n_jobs=4, verbose=verbose, max_features=mf)#True
+        self.model = RandomForestRegressor(n_estimators=est, criterion=crit, n_jobs=-1, verbose=verbose, max_features=mf, random_state=1)#, max_depth=2 min_samples_leaf=0.05
     
     def learn(self, X, y, **kwargs):
         return self.model.fit(X, y.ravel())

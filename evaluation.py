@@ -6,7 +6,7 @@ from sklearn.metrics import mean_squared_error
 import os
 
 dir = './test_results/'#_bifacial/'
-figsize = (16, 16)
+figsize = (10, 10)
 if not os.path.exists(dir):
     os.makedirs(dir)
 
@@ -15,6 +15,7 @@ def set_dir(directory):
     dir = directory
     if not os.path.exists(dir):
         os.makedirs(dir)
+    print('output directory set to ' + dir)
 
 def _draw_boxplot(data, offset, ax, edge_color, fill_color, mticks=True, num=1, outliers=True):
     pos = np.arange(num) + offset
@@ -90,12 +91,12 @@ def walkForwardDailyLoss(test_y, pred_y, method_y=None, method=None, horizon='1'
     d1 = np.array_split(test_y, j)
     d2 = np.array_split(pred_y, j)
     pred_error = pd.DataFrame([math.sqrt(mean_squared_error(d2[i], d1[i])) for i in range(len(d1))])
-    print('daily mean ' + horizon + ' RMSE: ' + str(pred_error.mean()[0]))
+    #print('daily mean ' + horizon + ' RMSE: ' + str(pred_error.mean()[0]))
     
     if method_y is not None:
         d3 = np.array_split(method_y, j)
         method_error = pd.DataFrame([math.sqrt(mean_squared_error(d3[i], d1[i])) for i in range(len(d1))])
-        print('daily mean ' + method + ' forecast RMSE: ' + str(method_error.mean()[0]))
+        #print('daily mean ' + method + ' forecast RMSE: ' + str(method_error.mean()[0]))
     
     fig, ax = plt.subplots(figsize=figsize)
     ax.plot(pred_error, color='orange', linewidth=2)
@@ -188,7 +189,8 @@ def plot_error_by_hour_of_day(data, method, shift, forecast_horizon):
         data_h[col] = np.roll(data_h[col], shift)
         
     fig, ax = plt.subplots(figsize=figsize)
-    ax.plot(data_h)
+    ax.plot(data_h.drop(['pvlib'], axis=1))
+    ax.plot(data_h['pvlib'], color='black', linestyle='dashed', linewidth=2)
     ax.set_title('Mean RMSE per hour of day')
     ax.set_ylabel('RMSE [w]')
     ax.set_xlabel('Hour of day')
@@ -215,8 +217,8 @@ def daily_energy_error(m_col, p_col, l_col, method, horizon, start=None, end=Non
         m = np.trapz(dm[i])
         p = np.trapz(dp[i])
         l = np.trapz(dl[i])
-        abs_err_p = m - p
-        abs_err_l = m - l
+        abs_err_p = p - m
+        abs_err_l = l - m
         abs_errors_p.append(abs_err_p)
         abs_errors_l.append(abs_err_l)
         errors_p.append(abs_err_p / m * 100)
@@ -225,13 +227,33 @@ def daily_energy_error(m_col, p_col, l_col, method, horizon, start=None, end=Non
         energy_p.append(p)
         energy_l.append(l)
 
-    print('daily mean ' + horizon + ' absolute energy error: ' + str(np.mean(abs_errors_p)))
-    print('daily mean ' + method + ' forecast absolute energy error: ' + str(np.mean(abs_errors_l)))
-    print('daily mean ' + horizon + ' relative energy error: ' + str(np.mean(errors_p)) + '%')
-    print('daily mean ' + method + ' forecast relative energy error: ' + str(np.mean(errors_l)) + '%')
+    #print('daily mean ' + horizon + ' absolute energy error: ' + str(np.mean(abs_errors_p)))
+    #print('daily mean ' + method + ' forecast absolute energy error: ' + str(np.mean(abs_errors_l)))
+    #print('daily mean ' + horizon + ' relative energy error: ' + str(np.mean(errors_p)) + '%')
+    #print('daily mean ' + method + ' forecast relative energy error: ' + str(np.mean(errors_l)) + '%')
 
+    fig, ax = plt.subplots(figsize=figsize)
+    ax.plot(errors_p, color='orange', linewidth=2)
+    #ax.plot(errors_l, color='green', linestyle='dashed', linewidth=2)
+    ax.set_title("Daily energy error")
+    ax.set_ylabel("Energy error %")
+    ax.set_yscale('linear')
+    ax.legend([horizon, method])
+    fig.autofmt_xdate()
+    plt.grid(True)
+    name = dir + horizon + '_rel_energy_error'
+    if start:
+        name += '_from' + start.replace(':', '-')
+    if end:
+        name += '_to' + end.replace(':', '-')
+    if l_col is not None:
+        name += '_with_' + method
+    fig.savefig(name + '.png')
+    #fig.show()
+    plt.close(fig)
+    
 
-    fig, ax = plt.subplots(figsize=(18, 12))
+    fig, ax = plt.subplots(figsize=figsize)
     ax.plot(abs_errors_p)
     ax.plot(abs_errors_l)
     ax.set_title("absolute daily energy error")
@@ -252,7 +274,7 @@ def daily_energy_error(m_col, p_col, l_col, method, horizon, start=None, end=Non
     plt.close(fig)
     
     
-    fig, ax = plt.subplots(figsize=(18, 12))
+    fig, ax = plt.subplots(figsize=figsize)
     ax.plot(energy_m)
     ax.plot(energy_p)
     #ax.plot(energy_l)
@@ -274,12 +296,13 @@ def daily_energy_error(m_col, p_col, l_col, method, horizon, start=None, end=Non
     plt.close(fig)
     
     
-    fig, ax = plt.subplots(figsize=(12, 12))
-    bp1 = _draw_boxplot(errors_p, -0.2, ax, 'red', 'tomato')
-    #if l_col is not None:
-    #    bp2 = _draw_boxplot(errors_l, 0.2, ax, 'blue', 'cornflowerblue')
-    #    ax.legend([bp1["boxes"][0], bp2["boxes"][0]], [horizon, method])
-    #    name = dir + 'daily_mean_percentage_energy_error_' + horizon + '_vs_' + method
+    fig, ax = plt.subplots(figsize=figsize)
+    bp1 = _draw_boxplot(errors_p, 0, ax, 'black', 'orange', outliers=True)
+    ax.set_title('Daily mean energy yield error')
+    ax.set_ylabel('Error [%]')
+    ax.set_yscale('log')
+    ax.set_xticklabels([''])
+    plt.grid(True)
     ax.legend([horizon + ' error'])
 
     name = dir + horizon + '_daily_mean_percentage_energy_error'

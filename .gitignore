@@ -1,6 +1,8 @@
 data/*
 test_results/preprocessed_data*
-test_results/other/*
+test_results/other
+test_results/data_step*
+test_results/**/*.png
 saved_models/*
 .ipynb_checkpoints/*
 __pycache__/*
