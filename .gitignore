@@ -4,6 +4,8 @@ test_results/other
 test_results/data_step*
 test_results/**/*.png
 test_results_bifacial/**/*.png
+test_results_bifacial/data_step*
+test_results_bifacial/other
 saved_models/*
 .ipynb_checkpoints/*
 __pycache__/*

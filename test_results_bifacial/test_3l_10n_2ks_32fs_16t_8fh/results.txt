@@ -1,0 +1,301 @@
+output directory set to ./test_results_bifacial/tilt_0/
+Tilt: 0
++1h-prediction test RMSE: 7.542
+daily mean +1h-prediction absolute energy error: -20.46142973255639
+daily mean +1h-prediction relative energy error: -1.6404631498003188%
++2h-prediction test RMSE: 7.980
+daily mean +2h-prediction absolute energy error: -22.962043526650568
+daily mean +2h-prediction relative energy error: -1.839459937538371%
++3h-prediction test RMSE: 8.064
+daily mean +3h-prediction absolute energy error: -23.774587340425793
+daily mean +3h-prediction relative energy error: -1.9207433107534864%
++4h-prediction test RMSE: 8.022
+daily mean +4h-prediction absolute energy error: -23.43764052153906
+daily mean +4h-prediction relative energy error: -1.9043556398777244%
++5h-prediction test RMSE: 8.008
+daily mean +5h-prediction absolute energy error: -23.324470627553218
+daily mean +5h-prediction relative energy error: -1.9141468212632649%
++6h-prediction test RMSE: 7.962
+daily mean +6h-prediction absolute energy error: -22.91333746324044
+daily mean +6h-prediction relative energy error: -1.9054383281997402%
++7h-prediction test RMSE: 7.922
+daily mean +7h-prediction absolute energy error: -22.43171900360868
+daily mean +7h-prediction relative energy error: -1.8806748025824962%
++8h-prediction test RMSE: 7.924
+daily mean +8h-prediction absolute energy error: -22.332478546469318
+daily mean +8h-prediction relative energy error: -1.893471821748037%
+
+output directory set to ./test_results_bifacial/tilt_10/
+Tilt: 10
++1h-prediction test RMSE: 7.779
+daily mean +1h-prediction absolute energy error: -21.912705488855188
+daily mean +1h-prediction relative energy error: -1.7819191233112592%
++2h-prediction test RMSE: 8.204
+daily mean +2h-prediction absolute energy error: -24.464568916424415
+daily mean +2h-prediction relative energy error: -1.992860825225024%
++3h-prediction test RMSE: 8.303
+daily mean +3h-prediction absolute energy error: -25.359212122119448
+daily mean +3h-prediction relative energy error: -2.079280516469342%
++4h-prediction test RMSE: 8.280
+daily mean +4h-prediction absolute energy error: -25.088677272371072
+daily mean +4h-prediction relative energy error: -2.0717030670453123%
++5h-prediction test RMSE: 8.288
+daily mean +5h-prediction absolute energy error: -25.087792022733094
+daily mean +5h-prediction relative energy error: -2.0892889448345704%
++6h-prediction test RMSE: 8.247
+daily mean +6h-prediction absolute energy error: -24.698927236573397
+daily mean +6h-prediction relative energy error: -2.082474696613484%
++7h-prediction test RMSE: 8.215
+daily mean +7h-prediction absolute energy error: -24.249006030570115
+daily mean +7h-prediction relative energy error: -2.059353578252826%
++8h-prediction test RMSE: 8.225
+daily mean +8h-prediction absolute energy error: -24.190460317552485
+daily mean +8h-prediction relative energy error: -2.074802118296568%
+
+output directory set to ./test_results_bifacial/tilt_15/
+Tilt: 15
++1h-prediction test RMSE: 7.945
+daily mean +1h-prediction absolute energy error: -21.37182289540162
+daily mean +1h-prediction relative energy error: -1.7059227795037053%
++2h-prediction test RMSE: 8.363
+daily mean +2h-prediction absolute energy error: -23.788232838563562
+daily mean +2h-prediction relative energy error: -1.9023555601717832%
++3h-prediction test RMSE: 8.471
+daily mean +3h-prediction absolute energy error: -24.681190938812687
+daily mean +3h-prediction relative energy error: -1.9913849814945535%
++4h-prediction test RMSE: 8.453
+daily mean +4h-prediction absolute energy error: -24.413015700296416
+daily mean +4h-prediction relative energy error: -1.9828854903030124%
++5h-prediction test RMSE: 8.468
+daily mean +5h-prediction absolute energy error: -24.443886530436878
+daily mean +5h-prediction relative energy error: -2.007105088518291%
++6h-prediction test RMSE: 8.435
+daily mean +6h-prediction absolute energy error: -24.071069578173443
+daily mean +6h-prediction relative energy error: -2.0017011424648237%
++7h-prediction test RMSE: 8.411
+daily mean +7h-prediction absolute energy error: -23.657751522741425
+daily mean +7h-prediction relative energy error: -1.9810469195653024%
++8h-prediction test RMSE: 8.432
+daily mean +8h-prediction absolute energy error: -23.610728950363594
+daily mean +8h-prediction relative energy error: -2.002784935129537%
+
+output directory set to ./test_results_bifacial/tilt_18/
+Tilt: 18
++1h-prediction test RMSE: 8.030
+daily mean +1h-prediction absolute energy error: -21.447115115356706
+daily mean +1h-prediction relative energy error: -1.8145880450511358%
++2h-prediction test RMSE: 8.451
+daily mean +2h-prediction absolute energy error: -23.845146739708763
+daily mean +2h-prediction relative energy error: -2.0207934629088715%
++3h-prediction test RMSE: 8.567
+daily mean +3h-prediction absolute energy error: -24.757403313467236
+daily mean +3h-prediction relative energy error: -2.1092588820832288%
++4h-prediction test RMSE: 8.553
+daily mean +4h-prediction absolute energy error: -24.521763090033907
+daily mean +4h-prediction relative energy error: -2.0972887986143616%
++5h-prediction test RMSE: 8.573
+daily mean +5h-prediction absolute energy error: -24.57343869173727
+daily mean +5h-prediction relative energy error: -2.116237917211455%
++6h-prediction test RMSE: 8.545
+daily mean +6h-prediction absolute energy error: -24.217624223167398
+daily mean +6h-prediction relative energy error: -2.1036524326429658%
++7h-prediction test RMSE: 8.525
+daily mean +7h-prediction absolute energy error: -23.829708108895257
+daily mean +7h-prediction relative energy error: -2.080116372390218%
++8h-prediction test RMSE: 8.553
+daily mean +8h-prediction absolute energy error: -23.79728029203906
+daily mean +8h-prediction relative energy error: -2.0922009533370436%
+
+output directory set to ./test_results_bifacial/tilt_21/
+Tilt: 21
++1h-prediction test RMSE: 8.061
+daily mean +1h-prediction absolute energy error: -19.789779963453746
+daily mean +1h-prediction relative energy error: -1.5427060271682957%
++2h-prediction test RMSE: 8.489
+daily mean +2h-prediction absolute energy error: -21.979643697582745
+daily mean +2h-prediction relative energy error: -1.703900678271391%
++3h-prediction test RMSE: 8.610
+daily mean +3h-prediction absolute energy error: -22.818957634979284
+daily mean +3h-prediction relative energy error: -1.7744919945155597%
++4h-prediction test RMSE: 8.603
+daily mean +4h-prediction absolute energy error: -22.6009294995633
+daily mean +4h-prediction relative energy error: -1.762869146497283%
++5h-prediction test RMSE: 8.625
+daily mean +5h-prediction absolute energy error: -22.658651384802504
+daily mean +5h-prediction relative energy error: -1.781834762018425%
++6h-prediction test RMSE: 8.604
+daily mean +6h-prediction absolute energy error: -22.32874378432989
+daily mean +6h-prediction relative energy error: -1.7737100325274326%
++7h-prediction test RMSE: 8.592
+daily mean +7h-prediction absolute energy error: -21.98230692033762
+daily mean +7h-prediction relative energy error: -1.7553628841570306%
++8h-prediction test RMSE: 8.625
+daily mean +8h-prediction absolute energy error: -21.952996545612464
+daily mean +8h-prediction relative energy error: -1.7706017454655132%
+
+output directory set to ./test_results_bifacial/tilt_25/
+Tilt: 25
++1h-prediction test RMSE: 7.910
+daily mean +1h-prediction absolute energy error: -16.87066109101349
+daily mean +1h-prediction relative energy error: -1.319163741289792%
++2h-prediction test RMSE: 8.313
+daily mean +2h-prediction absolute energy error: -18.703128463837995
+daily mean +2h-prediction relative energy error: -1.4523985416717713%
++3h-prediction test RMSE: 8.420
+daily mean +3h-prediction absolute energy error: -19.36627285750303
+daily mean +3h-prediction relative energy error: -1.5101418332524967%
++4h-prediction test RMSE: 8.421
+daily mean +4h-prediction absolute energy error: -19.17329055893114
+daily mean +4h-prediction relative energy error: -1.499256556091613%
++5h-prediction test RMSE: 8.444
+daily mean +5h-prediction absolute energy error: -19.1790730119564
+daily mean +5h-prediction relative energy error: -1.5132008155541083%
++6h-prediction test RMSE: 8.429
+daily mean +6h-prediction absolute energy error: -18.851637480689096
+daily mean +6h-prediction relative energy error: -1.5071132398815332%
+
++7h-prediction test RMSE: 8.424
+daily mean +7h-prediction absolute energy error: -18.52029814757354
+daily mean +7h-prediction relative energy error: -1.4860036755602017%
++8h-prediction test RMSE: 8.462
+daily mean +8h-prediction absolute energy error: -18.43652483407446
+daily mean +8h-prediction relative energy error: -1.4919129987680275%
+
+output directory set to ./test_results_bifacial/tilt_30/
+Tilt: 30
++1h-prediction test RMSE: 7.924
+daily mean +1h-prediction absolute energy error: -14.48878851325728
+daily mean +1h-prediction relative energy error: -1.1775945656107139%
++2h-prediction test RMSE: 8.321
+daily mean +2h-prediction absolute energy error: -16.02405381068178
+daily mean +2h-prediction relative energy error: -1.2951883204546806%
++3h-prediction test RMSE: 8.419
+daily mean +3h-prediction absolute energy error: -16.560353094593324
+daily mean +3h-prediction relative energy error: -1.351037952382796%
++4h-prediction test RMSE: 8.424
+daily mean +4h-prediction absolute energy error: -16.35644154297824
+daily mean +4h-prediction relative energy error: -1.339988206072278%
++5h-prediction test RMSE: 8.453
+daily mean +5h-prediction absolute energy error: -16.350907365105044
+daily mean +5h-prediction relative energy error: -1.3544449679677468%
++6h-prediction test RMSE: 8.445
+daily mean +6h-prediction absolute energy error: -16.01239373491259
+daily mean +6h-prediction relative energy error: -1.3443688353080974%
++7h-prediction test RMSE: 8.448
+daily mean +7h-prediction absolute energy error: -15.710558668977875
+daily mean +7h-prediction relative energy error: -1.3285848952840857%
++8h-prediction test RMSE: 8.491
+daily mean +8h-prediction absolute energy error: -15.598976857887079
+daily mean +8h-prediction relative energy error: -1.3347545527617928%
+
+output directory set to ./test_results_bifacial/tilt_35/
+Tilt: 35
++1h-prediction test RMSE: 7.902
+daily mean +1h-prediction absolute energy error: -11.98853805440949
+daily mean +1h-prediction relative energy error: -0.8969535288486761%
++2h-prediction test RMSE: 8.293
+daily mean +2h-prediction absolute energy error: -13.219733482432014
+daily mean +2h-prediction relative energy error: -0.9720998931549732%
++3h-prediction test RMSE: 8.386
+daily mean +3h-prediction absolute energy error: -13.606398961871076
+daily mean +3h-prediction relative energy error: -1.0025579193164167%
++4h-prediction test RMSE: 8.396
+daily mean +4h-prediction absolute energy error: -13.413787834506149
+daily mean +4h-prediction relative energy error: -0.9878535104118888%
++5h-prediction test RMSE: 8.426
+daily mean +5h-prediction absolute energy error: -13.35401526163985
+daily mean +5h-prediction relative energy error: -0.992906944660728%
++6h-prediction test RMSE: 8.422
+daily mean +6h-prediction absolute energy error: -13.021881439315049
+daily mean +6h-prediction relative energy error: -0.9799267715538197%
++7h-prediction test RMSE: 8.431
+daily mean +7h-prediction absolute energy error: -12.733340497402097
+daily mean +7h-prediction relative energy error: -0.9604531805789354%
++8h-prediction test RMSE: 8.481
+daily mean +8h-prediction absolute energy error: -12.58054638052126
+daily mean +8h-prediction relative energy error: -0.9589730855203585%
+
+output directory set to ./test_results_bifacial/tilt_40/
+Tilt: 40
++1h-prediction test RMSE: 7.903
+daily mean +1h-prediction absolute energy error: -10.363020884739445
+daily mean +1h-prediction relative energy error: -0.619037259943559%
++2h-prediction test RMSE: 8.296
+daily mean +2h-prediction absolute energy error: -11.391010626971976
+daily mean +2h-prediction relative energy error: -0.6521409983763208%
++3h-prediction test RMSE: 8.387
+daily mean +3h-prediction absolute energy error: -11.682336446173561
+daily mean +3h-prediction relative energy error: -0.667166245636069%
++4h-prediction test RMSE: 8.403
+daily mean +4h-prediction absolute energy error: -11.493117986113814
+daily mean +4h-prediction relative energy error: -0.6426834876212424%
++5h-prediction test RMSE: 8.434
+daily mean +5h-prediction absolute energy error: -11.390847458530018
+daily mean +5h-prediction relative energy error: -0.6402843677716736%
++6h-prediction test RMSE: 8.438
+daily mean +6h-prediction absolute energy error: -11.061834590648987
+daily mean +6h-prediction relative energy error: -0.6193883551370352%
++7h-prediction test RMSE: 8.451
+daily mean +7h-prediction absolute energy error: -10.780184439954489
+daily mean +7h-prediction relative energy error: -0.5934831010769029%
++8h-prediction test RMSE: 8.504
+daily mean +8h-prediction absolute energy error: -10.589161430375134
+daily mean +8h-prediction relative energy error: -0.5814118365454441%
+
+output directory set to ./test_results_bifacial/tilt_45/
+Tilt: 45
++1h-prediction test RMSE: 7.808
+daily mean +1h-prediction absolute energy error: -8.823567203591793
+daily mean +1h-prediction relative energy error: -0.5407259727214903%
++2h-prediction test RMSE: 8.195
+daily mean +2h-prediction absolute energy error: -9.668088045748553
+daily mean +2h-prediction relative energy error: -0.5651835891038481%
++3h-prediction test RMSE: 8.286
+daily mean +3h-prediction absolute energy error: -9.876256482589818
+daily mean +3h-prediction relative energy error: -0.5719205961113119%
++4h-prediction test RMSE: 8.304
+daily mean +4h-prediction absolute energy error: -9.69093256966689
+daily mean +4h-prediction relative energy error: -0.5510130908348989%
++5h-prediction test RMSE: 8.337
+daily mean +5h-prediction absolute energy error: -9.568024340885724
+daily mean +5h-prediction relative energy error: -0.5498561710275061%
++6h-prediction test RMSE: 8.343
+daily mean +6h-prediction absolute energy error: -9.242947193867106
+daily mean +6h-prediction relative energy error: -0.5308868214321947%
++7h-prediction test RMSE: 8.358
+daily mean +7h-prediction absolute energy error: -8.969192803592499
+daily mean +7h-prediction relative energy error: -0.5071310490105476%
++8h-prediction test RMSE: 8.410
+daily mean +8h-prediction absolute energy error: -8.757835643280126
+daily mean +8h-prediction relative energy error: -0.4925323238907885%
+
+output directory set to ./test_results_bifacial/tilt_60/
+Tilt: 60
++1h-prediction test RMSE: 8.070
+daily mean +1h-prediction absolute energy error: -21.772870494138594
+daily mean +1h-prediction relative energy error: -1.482187432285462%
++2h-prediction test RMSE: 8.497
+daily mean +2h-prediction absolute energy error: -24.276561789436727
+daily mean +2h-prediction relative energy error: -1.632056490408709%
++3h-prediction test RMSE: 8.602
+daily mean +3h-prediction absolute energy error: -25.226073651819384
+daily mean +3h-prediction relative energy error: -1.6906323558603056%
++4h-prediction test RMSE: 8.602
+daily mean +4h-prediction absolute energy error: -25.15415519043845
+daily mean +4h-prediction relative energy error: -1.6820435375247622%
++5h-prediction test RMSE: 8.620
+daily mean +5h-prediction absolute energy error: -25.295014824849492
+daily mean +5h-prediction relative energy error: -1.6968406583524311%
++6h-prediction test RMSE: 8.599
+daily mean +6h-prediction absolute energy error: -24.980898778653415
+daily mean +6h-prediction relative energy error: -1.6781253149724187%
++7h-prediction test RMSE: 8.590
+daily mean +7h-prediction absolute energy error: -24.71512217205877
+daily mean +7h-prediction relative energy error: -1.6576355070141495%
++8h-prediction test RMSE: 8.619
+daily mean +8h-prediction absolute energy error: -24.77544801413691
+daily mean +8h-prediction relative energy error: -1.6622358907573107%
+
+output directory set to ./test_results_bifacial/tilt_90/
+Tilt: 90
++1h-prediction test RMSE: 7.902
