@@ -3,6 +3,7 @@ test_results/preprocessed_data*
 test_results/other
 test_results/data_step*
 test_results/**/*.png
+test_results_bifacial/**/*.png
 saved_models/*
 .ipynb_checkpoints/*
 __pycache__/*
